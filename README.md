@@ -13,16 +13,17 @@ It's a bit hacky and not well designed, but i'm no python expert.
 
 1. put the script into the **webui\scripts** Folder
 
-## Usage ##
+## Usage
 
 Simply select the Script and choose your desired Schedule Type modifier.
 
-![image](https://github.com/Epinikion/epiCFG-Schedule-Type/assets/12903229/ca12ddde-4348-4ed1-ab01-42e18dae0e5f)
+<img src="https://github.com/Epinikion/epiCFG-Schedule-Type/assets/12903229/ca12ddde-4348-4ed1-ab01-42e18dae0e5f" height="250">
 
-Samples:
-![00112-3411050435](https://github.com/Epinikion/epiCFG-Schedule-Type/assets/12903229/ef708680-f758-4777-9146-9f1f720cf87c)
-![00117-3411050435](https://github.com/Epinikion/epiCFG-Schedule-Type/assets/12903229/b7d20882-eb15-4e0a-824b-63cf28f46ce6)
-![00127-3411050435](https://github.com/Epinikion/epiCFG-Schedule-Type/assets/12903229/7fa23b7e-d65c-4f9c-b61d-d669a19763ba)
+#### Samples:
+
+<img src="https://github.com/Epinikion/epiCFG-Schedule-Type/assets/12903229/ef708680-f758-4777-9146-9f1f720cf87c" height="250">
+<img src="https://github.com/Epinikion/epiCFG-Schedule-Type/assets/12903229/b7d20882-eb15-4e0a-824b-63cf28f46ce6" height="250">
+<img src="https://github.com/Epinikion/epiCFG-Schedule-Type/assets/12903229/7fa23b7e-d65c-4f9c-b61d-d669a19763ba" height="250">
 
 
 #### Thanks to the PAG repro where i get the idea and weights from

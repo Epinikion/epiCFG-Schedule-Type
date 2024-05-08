@@ -5,6 +5,7 @@ This repository contains the `epiCFG_schedule_type.py` script, designed to be us
 ## Features
 
 - **Multiple Scheduling Options**: Includes diverse scheduling types such as Linear, Clamp-Linear, Inverse-Linear, PCS, Cosine, Sine, V-Shape, A-Shape, and Interval schedules.
+- **Multiple Selection**: You can select multiple schedules and the script will process them.
 
 ## Installation
 

@@ -51,7 +51,7 @@ class Script(scripts.Script):
 
     def run(self, p, strength, schedules):
         processed_images = []
-        if p.sampler_name in ('Euler a', 'Euler', 'LMS', 'DPM++ 2M', 'DPM fast', 'LMS Karras', 'DPM++ 2M Karras','DPM++ 2M SDE','DPM++ 3M SDE'):
+        if p.sampler_name in ('Euler a', 'Euler', 'LMS', 'DPM++ 2M', 'DPM fast', 'LMS Karras', 'DPM++ 2M Karras','DPM++ 2M SDE','DPM++ 3M SDE','Restart'):
             max_mul_count = p.steps * p.batch_size
             steps_per_mul = p.batch_size
         elif p.sampler_name in ('Heun', 'DPM2', 'DPM2 a', 'DPM++ 2S a', 'DPM2 Karras', 'DPM2 a Karras', 'DPM++ 2S a Karras', 'DPM++ SDE', 'DPM++ SDE Karras','UniPC'):

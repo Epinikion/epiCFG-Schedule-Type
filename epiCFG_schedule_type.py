@@ -8,8 +8,10 @@ from modules.shared import opts, cmd_opts, state
 from math import floor
 
 class ProcessedImagesWrapper:
-    def __init__(self, images):
+    def __init__(self, images, schedule, script_title):
         self.images = images
+        self.schedule = schedule
+        self.script_title = script_title  # Store the script title
 
     def js(self):
         flat_images = []
@@ -22,7 +24,18 @@ class ProcessedImagesWrapper:
 
     @property
     def info(self):
-        return "\n".join(str(image.info) for image in self.images if hasattr(image, 'info'))
+        info_texts = []
+        if isinstance(self.images, list):  # Check if self.images is indeed a list
+            for index, image in enumerate(self.images):
+                if hasattr(image, 'info'):
+                    # Append the schedule type to the existing parameters
+                    original_params = image.info.get('parameters', 'Parameter Missing')
+                    # Add the schedule type to the existing parameters
+                    params_with_schedule = f"{original_params}, Script: {self.script_title}, Schedule: {self.schedule[index]}"
+                    info_texts.append(params_with_schedule)
+        else:
+            return "self.images is not a list"
+        return "\n".join(info_texts)
 
     @property
     def comments(self):
@@ -30,7 +43,6 @@ class ProcessedImagesWrapper:
         return "\n".join(comments) if comments else ""
 
 class Script(scripts.Script):
-
     def title(self):
         return "epiCFG Schedule Type"
 
@@ -51,6 +63,9 @@ class Script(scripts.Script):
     def run(self, p, schedules):
         strength = 1.0  # Fixed strength value
         processed_images = []
+        all_processed_images = []
+        script_title = self.title()  # Get the title from the title method
+
         if p.sampler_name in ('Euler a', 'Euler', 'LMS', 'DPM++ 2M', 'DPM fast', 'LMS Karras', 'DPM++ 2M Karras','DPM++ 2M SDE','DPM++ 3M SDE','Restart'):
             max_mul_count = p.steps * p.batch_size
             steps_per_mul = p.batch_size
@@ -71,7 +86,7 @@ class Script(scripts.Script):
             return
         target_value = p.cfg_scale * (1 - strength)
         saved_obj = p.cfg_scale
-        all_processed_images = []
+
         for schedule in schedules:
             print('\nepiCFG: ', schedule, end='\n')
             p.cfg_scale = Fake_float(p.cfg_scale, target_value, max_mul_count, steps_per_mul, p.steps, schedule)
@@ -79,7 +94,7 @@ class Script(scripts.Script):
             processed_images = process_image_to_array(proc)
             all_processed_images.extend(processed_images)
             p.cfg_scale = saved_obj
-        return ProcessedImagesWrapper(all_processed_images)
+        return ProcessedImagesWrapper(all_processed_images, schedules, script_title)
 
 class Fake_float(float):
     def __new__(self, orig_value, target_value, max_mul_count, steps_per_mul, max_steps, schedule):

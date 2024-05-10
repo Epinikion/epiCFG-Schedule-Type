@@ -38,7 +38,6 @@ class Script(scripts.Script):
         return not(is_img2img)
 
     def ui(self, is_img2img):
-        strength = gr.Slider(value=1.00, label="Strength", minimum=0.00, maximum=2.00, step=0.1)
         schedule_options = [
             'Constant', 'Linear', 'Clamp-Linear (c=4.0)', 'Clamp-Linear (c=2.0)',
             'Clamp-Linear (c=1.0)', 'Inverse-Linear', 'PCS (s=0.01)', 'PCS (s=0.1)',
@@ -47,9 +46,10 @@ class Script(scripts.Script):
             'V-Shape', 'A-Shape', 'Interval'
         ]
         schedule_multiselect_dropdown = gr.components.Dropdown(label="Schedule", choices=schedule_options, default="Inverse-Linear", multiselect=True)
-        return [strength, schedule_multiselect_dropdown]
+        return [schedule_multiselect_dropdown]
 
-    def run(self, p, strength, schedules):
+    def run(self, p, schedules):
+        strength = 1.0  # Fixed strength value
         processed_images = []
         if p.sampler_name in ('Euler a', 'Euler', 'LMS', 'DPM++ 2M', 'DPM fast', 'LMS Karras', 'DPM++ 2M Karras','DPM++ 2M SDE','DPM++ 3M SDE','Restart'):
             max_mul_count = p.steps * p.batch_size
